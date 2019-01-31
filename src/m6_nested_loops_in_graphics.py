@@ -83,7 +83,28 @@ def draw_L(window, circle, r, c):
     # TODO: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    original_x = circle.center.x
+    original_y = circle.center.y
+    radius = circle.radius
+    color = circle.fill_color
 
+    x = original_x
+    y = original_y
+    cols = 3
+
+    for j in range(r + 3):
+        if j == r:
+            cols += c
+        for k in range(cols):
+            new_circle = rg.Circle(rg.Point(x, y), radius)
+            new_circle.fill_color = color
+            new_circle.attach_to(window)
+            window.render(0.1)
+
+            x += 2 * radius
+
+        y += 2 * radius
+        x = original_x
 
 def run_test_draw_wall_on_right():
     """ Tests the    draw_wall_on_right    function. """
@@ -124,7 +145,30 @@ def draw_wall_on_right(rectangle, n, window):
     # TODO: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    height = rectangle.get_height()
+    width = rectangle.get_width()
 
+    urcp = rectangle.get_upper_right_corner()
+    llcp = rectangle.get_lower_left_corner()
+
+    urcp_og_x = urcp.x
+    llcp_og_x = llcp.x
+
+    for k in range(n):
+
+        for j in range(k + 1):
+            new_rect = rg.Rectangle(urcp, llcp)
+            new_rect.attach_to(window)
+            window.render(0.1)
+
+            urcp.x -= width
+            llcp.x -= width
+
+        urcp.y += height
+        llcp.y += height
+
+        urcp.x = urcp_og_x
+        llcp.x = llcp_og_x
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
